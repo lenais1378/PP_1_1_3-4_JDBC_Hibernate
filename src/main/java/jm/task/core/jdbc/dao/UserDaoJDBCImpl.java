@@ -77,10 +77,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public List<User> getAllUsers() {
      List<User> users = new ArrayList<>();
 
-     try (Connection connection =
-                  Util.getConnection();PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM usersTable");
-
-          ResultSet resultSet = preparedStatement.executeQuery();) {
+     try (Connection connection = Util.getConnection();PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM usersTable"); ResultSet resultSet = preparedStatement.executeQuery();) {
       while (resultSet.next()) {
        User user = new User();
 
@@ -104,7 +101,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
      try (Connection connection =
                   Util.getConnection();PreparedStatement preparedStatement =
-                  connection.prepareStatement("DELETE FROM usersTable");){
+                  connection.prepareStatement("TRUNCATE usersTable");){
       preparedStatement.executeUpdate();
      } catch (SQLException e) {
       e.printStackTrace();
