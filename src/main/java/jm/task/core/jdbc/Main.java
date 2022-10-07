@@ -39,6 +39,10 @@ public class Main {
         userService.createUsersTable();
         userService.saveUser("Name1", "LastName1", (byte) 20);
         userService.saveUser("Name2", "LastName2", (byte) 25);
+        List<User> userList = userService.getAllUsers();
+        for (User us : userList) {
+            System.out.println(us.toString());
+        }
         userService.removeUserById(1);
         userService.cleanUsersTable();
         userService.dropUsersTable();
