@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static jm.task.core.jdbc.util.Util.getConnection;
-import static jm.task.core.jdbc.util.Util.getSessionFactory;
 
 public class UserDaoJDBCImpl implements UserDao {
 

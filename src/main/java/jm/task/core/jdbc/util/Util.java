@@ -14,12 +14,20 @@ import static org.hibernate.cfg.AvailableSettings.DRIVER;
 
 
 public class Util {
+    private static volatile Util INSTANCE;
 
     private static Connection connection = null;
     //    private static Statement statement = null;
     private static final String URL = "jdbc:mysql://localhost:3306/mydbtest";
     private static final String USER = "root";
     private static final String PASS = "root";
+
+    public static Util getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new Util();
+        }
+        return INSTANCE;
+    }
 
     public static Connection getConnection() {
         try {
@@ -33,13 +41,10 @@ public class Util {
         return connection;
     }
 
-    private static SessionFactory sessionFactory;
 
-    public static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
+    public SessionFactory getSessionFactory() {
             Configuration configuration = new Configuration();
             Properties settings = new Properties();
-
             settings.put(DRIVER, "com.mysql.cj.jdbc.Driver");
             settings.put(Environment.URL, "jdbc:mysql://localhost:3306/mydbtest");
             settings.put(Environment.USER, "root");
@@ -49,11 +54,10 @@ public class Util {
             settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
             settings.put(Environment.HBM2DDL_AUTO, "create");
 
-            sessionFactory = new org.hibernate.cfg.Configuration()
+            SessionFactory sessionFactory = new org.hibernate.cfg.Configuration()
                     .addProperties(settings)
                     .addAnnotatedClass(User.class)
                     .buildSessionFactory();
-        }
         return sessionFactory;
     }
 }

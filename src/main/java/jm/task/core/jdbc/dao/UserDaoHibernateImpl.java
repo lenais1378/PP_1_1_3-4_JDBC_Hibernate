@@ -16,15 +16,8 @@ import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
     private org.hibernate.Transaction transaction = null;
-    SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory = Util.getInstance().getSessionFactory();
 
-    {
-        try {
-            sessionFactory = Util.getSessionFactory();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 
     @Override
